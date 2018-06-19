@@ -1,0 +1,5 @@
+{% extends 'product/index.html.twig' %}
+
+{% block page_uri_generator %}
+    <a href="{{ path('app_product_list_by_name', {page: i, motif: motif}) }}">{{ i }}</a>
+{% endblock %}

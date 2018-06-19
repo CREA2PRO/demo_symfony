@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head><title>demo</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+</head>
+<body>
+
+<form action="{{ path('app_product_list_by_name') }}" method="get">
+    <input name="motif" placeholder="filtre par nom"/>
+    <button type="submit">Filtrer</button>
+</form>
+<form action="{{ path('app_product_list_by_reference') }}" method="get">
+    <input name="motif" placeholder="filtre par référence"/>
+    <button type="submit">Filtrer</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Référence</th>
+        <th>Nom</th>
+        <th>Qté</th>
+        <th>Lieu</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for product in products %}
+        <tr>
+            <td>{{ product.reference }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.count }}</td>
+            <td>{{ product.position.batiment }} / {{ product.position.couloir }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4">aucun produit</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+{% if pageCount>0 %}
+    Pages :
+    {% for i in 1..pageCount %}
+        {% block page_uri_generator %}
+            <a href="{{ path('app_product_list', {page: i}) }}">{{ i }}</a>
+        {% endblock %}
+    {% endfor %}
+{% endif %}
+</html>
